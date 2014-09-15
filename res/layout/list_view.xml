@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <DigitalClock android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center|top"
+        android:paddingTop="30dp"
+        android:textSize="40sp" />
+
+	<FrameLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1" >
+
+	    <ListView android:id="@android:id/list"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_gravity="bottom" >
+	    </ListView>
+	    
+		<LinearLayout
+		    android:id="@android:id/empty"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_gravity="center"
+		    android:orientation="vertical" >
+		    
+		    <TextView android:id="@+id/emptyTextView"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center"
+		        android:textSize="17sp"
+		        android:paddingTop="80dp"
+		        android:paddingBottom="5dp"
+		        android:text="@string/empty_list_text" />
+		    
+		    <Button android:id="@+id/addMachineButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:text="@string/empty_list_add_button"
+		        android:textSize="13sp" />
+		    
+		</LinearLayout>    
+	
+	</FrameLayout>
+</LinearLayout>
