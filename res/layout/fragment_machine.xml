@@ -4,5 +4,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <TextView
+        android:text="@string/machine_number_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:paddingTop="20dp"
+        />
+    
+    <Spinner 
+        android:id="@+id/machine_number_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+    
+    <RadioGroup
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:paddingLeft="15dp"
+	    android:paddingTop="15dp">
+	    
+	    <RadioButton android:id="@+id/radio_pirates"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/washer"
+	        android:paddingRight="20dp"
+	        android:textSize="20sp" />
+	        <!-- android:onClick="onRadioButtonClicked"/> -->
+	        
+	    <RadioButton android:id="@+id/radio_ninjas"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/dryer"
+	        android:textSize="20sp" />
+	        <!-- android:onClick="onRadioButtonClicked"/> -->
+	</RadioGroup>
+    
 
 </LinearLayout>

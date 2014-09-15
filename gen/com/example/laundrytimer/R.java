@@ -1092,7 +1092,7 @@ containing a value of this type.
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
         public static final int activity_chooser_view_content=0x7f060025;
-        public static final int addMachineButton=0x7f060040;
+        public static final int addMachineButton=0x7f060043;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
         public static final int checkbox=0x7f06002d;
@@ -1103,7 +1103,7 @@ containing a value of this type.
         public static final int disableHome=0x7f060008;
         public static final int dropdown=0x7f06000f;
         public static final int edit_query=0x7f060030;
-        public static final int emptyTextView=0x7f06003f;
+        public static final int emptyTextView=0x7f060042;
         public static final int end=0x7f060013;
         public static final int expand_activities_button=0x7f060026;
         public static final int expanded_menu=0x7f06002c;
@@ -1115,9 +1115,10 @@ containing a value of this type.
         public static final int image=0x7f060027;
         public static final int listMode=0x7f060001;
         public static final int list_item=0x7f060029;
-        public static final int menu_item_add_machine=0x7f060043;
-        public static final int menu_item_delete_machine=0x7f060041;
-        public static final int menu_item_settings=0x7f060042;
+        public static final int machine_number_spinner=0x7f06003e;
+        public static final int menu_item_add_machine=0x7f060046;
+        public static final int menu_item_delete_machine=0x7f060044;
+        public static final int menu_item_settings=0x7f060045;
         public static final int middle=0x7f060012;
         public static final int never=0x7f060009;
         public static final int none=0x7f060010;
@@ -1125,6 +1126,8 @@ containing a value of this type.
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
+        public static final int radio_ninjas=0x7f060040;
+        public static final int radio_pirates=0x7f06003f;
         public static final int search_badge=0x7f060032;
         public static final int search_bar=0x7f060031;
         public static final int search_button=0x7f060033;
@@ -1142,7 +1145,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f06001e;
         public static final int submit_area=0x7f060039;
         public static final int tabMode=0x7f060002;
-        public static final int time=0x7f06003e;
+        public static final int time=0x7f060041;
         public static final int title=0x7f06002b;
         public static final int top_action_bar=0x7f060020;
         public static final int up=0x7f060021;
@@ -1204,7 +1207,8 @@ containing a value of this type.
         public static final int fragment_machine=0x7f03001a;
         public static final int fragment_machine_list=0x7f03001b;
         public static final int list_view=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int spinner_layout=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
     }
     public static final class menu {
         public static final int context_machine_list=0x7f0d0000;
@@ -1254,11 +1258,14 @@ containing a value of this type.
         public static final int action_settings=0x7f0b000f;
         public static final int app_name=0x7f0b000d;
         public static final int delete_machine=0x7f0b0014;
+        public static final int dryer=0x7f0b0017;
         public static final int empty_list_add_button=0x7f0b0011;
         public static final int empty_list_text=0x7f0b0010;
         public static final int hello_world=0x7f0b000e;
+        public static final int machine_number_text=0x7f0b0015;
         public static final int menu_add_machine=0x7f0b0012;
         public static final int menu_preferences=0x7f0b0013;
+        public static final int washer=0x7f0b0016;
     }
     public static final class style {
         /** 

@@ -3,9 +3,14 @@ package com.example.laundrytimer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class MachineFragment extends Fragment {
 
@@ -13,7 +18,25 @@ public class MachineFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		getActivity().getActionBar().setDisplayShowHomeEnabled(true);
+		getActivity().getActionBar().setDisplayShowHomeEnabled(true);		// Enables up-navigation button
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_machine, parent, false);
+		
+		// Sets up the spinner
+		Spinner spinner = (Spinner)v.findViewById(R.id.machine_number_spinner);
+		String[] testArray = new String[35];
+		for (int i = 1; i <= 35; i++) {
+			testArray[i-1] = Integer.toString(i);
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, testArray);
+		spinner.setAdapter(adapter);
+		
+		
+		
+		return v;
 	}
 	
 	// Displays the icons on the action bar

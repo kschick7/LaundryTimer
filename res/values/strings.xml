@@ -9,5 +9,8 @@
     <string name="menu_add_machine">Add Machine</string>
     <string name="menu_preferences">Preferences</string>
     <string name="delete_machine">Delete</string>
+    <string name="machine_number_text">Machine Number:</string>
+    <string name="washer">Washer</string>
+    <string name="dryer">Dryer</string>
 
 </resources>

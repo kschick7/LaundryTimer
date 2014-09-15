@@ -14,7 +14,7 @@ public class SettingsFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
         setHasOptionsMenu(true);
-        getActivity().getActionBar().setDisplayShowHomeEnabled(true);
+        getActivity().getActionBar().setDisplayShowHomeEnabled(true);		// Enables up-navigation button
     }
     
 	// Sets up actions for icons on the action bar
