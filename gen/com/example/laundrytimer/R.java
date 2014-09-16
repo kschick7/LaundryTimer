@@ -1265,6 +1265,20 @@ containing a value of this type.
         public static final int machine_number_text=0x7f0b0015;
         public static final int menu_add_machine=0x7f0b0012;
         public static final int menu_preferences=0x7f0b0013;
+        public static final int pref_alarm_settings_cat=0x7f0b001a;
+        public static final int pref_auto_numbers_summary=0x7f0b0020;
+        public static final int pref_auto_numbers_title=0x7f0b001f;
+        public static final int pref_auto_select_settings_cat=0x7f0b0019;
+        public static final int pref_auto_type_summary=0x7f0b001e;
+        public static final int pref_auto_type_title=0x7f0b001d;
+        /**  Preferences Strings 
+         */
+        public static final int pref_default_machine_settings_cat=0x7f0b0018;
+        public static final int pref_dryer_settings=0x7f0b001c;
+        public static final int pref_play_alarm_title=0x7f0b0022;
+        public static final int pref_set_alarm_sound=0x7f0b0021;
+        public static final int pref_vibrate_title=0x7f0b0023;
+        public static final int pref_washer_settings=0x7f0b001b;
         public static final int washer=0x7f0b0016;
     }
     public static final class style {

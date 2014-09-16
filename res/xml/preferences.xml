@@ -1,9 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-	<CheckBoxPreference
-        android:key="pref_sync"
-        android:title="Hello"
-        android:defaultValue="true" />
-
+    <!-- Default machine settings category -->
+	<PreferenceCategory 
+	    android:title="@string/pref_default_machine_settings_cat" >
+	    
+	    <PreferenceScreen
+	        android:key="washer_settings_key"
+	    	android:title="@string/pref_washer_settings"
+	    	android:persistent="false" >
+	        
+	        <!-- Fill -->
+	        
+	    </PreferenceScreen>
+	    
+	    <PreferenceScreen
+	        android:key="dryer_settings_key"
+	    	android:title="@string/pref_dryer_settings"
+	    	android:persistent="false" >
+	        
+	        <!-- Fill -->
+	        
+	    </PreferenceScreen>
+	    
+	</PreferenceCategory>
+	
+	<!-- Alarm settings category -->
+	<PreferenceCategory
+	    android:title="@string/pref_alarm_settings_cat" >
+	    
+	    <Preference android:title="@string/pref_set_alarm_sound" >
+	        <!-- Add intent here --> 
+	    </Preference>
+	    
+	    <CheckBoxPreference
+	        android:key="play_alarm_by_default_key"
+	        android:title="@string/pref_play_alarm_title"
+	        android:defaultValue="false" />
+	    
+	    <CheckBoxPreference
+	        android:key="vibrate_by_default_key"
+	        android:title="@string/pref_vibrate_title"
+	        android:defaultValue="false" />
+	    
+	    
+	</PreferenceCategory>
+	
+	<!-- Auto-select settings category -->
+	<PreferenceCategory 
+	    android:title="@string/pref_auto_select_settings_cat" >
+	    
+	    <CheckBoxPreference
+	        android:key="auto_select_machine_type_key"
+	        android:title="@string/pref_auto_type_title"
+	        android:summary="@string/pref_auto_type_summary"
+	        android:defaultValue="false" />
+	    
+	    <CheckBoxPreference
+	        android:key="auto_select_machine_numbers_key"
+	        android:title="@string/pref_auto_numbers_title"
+	        android:summary="@string/pref_auto_numbers_summary"
+	        android:defaultValue="false" />
+	    
+	</PreferenceCategory>
+	
 </PreferenceScreen>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

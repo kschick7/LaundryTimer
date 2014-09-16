@@ -12,5 +12,19 @@
     <string name="machine_number_text">Machine Number:</string>
     <string name="washer">Washer</string>
     <string name="dryer">Dryer</string>
+    
+    <!-- Preferences Strings -->
+    <string name="pref_default_machine_settings_cat">Default Machine Settings</string>
+    <string name="pref_auto_select_settings_cat">Auto-Select Settings</string>
+    <string name="pref_alarm_settings_cat">Default Alarm Settings</string>
+    <string name="pref_washer_settings">Washer Settings</string>
+    <string name="pref_dryer_settings">Dryer Settings</string>
+    <string name="pref_auto_type_title">Auto-Select Machine Type</string>
+    <string name="pref_auto_type_summary">Selects machine type based on machine number chosen.</string>
+    <string name="pref_auto_numbers_title">Auto-Limit Machine Numbers</string>
+    <string name="pref_auto_numbers_summary">Limits the possible machine number choices based on machine type.</string>
+    <string name="pref_set_alarm_sound">Set Alarm Sound</string>
+    <string name="pref_play_alarm_title">Play alarm</string>
+    <string name="pref_vibrate_title">Vibrate</string>
 
 </resources>
