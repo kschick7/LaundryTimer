@@ -26,5 +26,12 @@
     <string name="pref_set_alarm_sound">Set Alarm Sound</string>
     <string name="pref_play_alarm_title">Play alarm</string>
     <string name="pref_vibrate_title">Vibrate</string>
+    <string name="pref_dryer_default_time">Default Dryer Time</string>
+    <string name="pref_washer_default_time">Default Washer Time</string>
+    <string name="pref_number_machines">Number of Machines</string>
+    
+    
+    <string name="time_dialog_message">Set the default time in minutes:</string>
+    <string name="num_machines_dialog_message">Set the number of machines:</string>
 
 </resources>

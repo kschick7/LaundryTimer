@@ -51,7 +51,7 @@ public class MachineFragment extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
-				if (NavUtils.getParentActivityName(getActivity()) != null)
+				if (NavUtils.getParentActivityName(getActivity()) != null)		// Navigate up
 					NavUtils.navigateUpFromSameTask(getActivity());
 				return true;
 			default:

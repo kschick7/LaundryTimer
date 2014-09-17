@@ -10,7 +10,9 @@
 	    	android:title="@string/pref_washer_settings"
 	    	android:persistent="false" >
 	        
-	        <!-- Fill -->
+	        <Preference 
+	            android:title="@string/pref_washer_default_time"
+	            android:key="washer_default_time_key" /> 
 	        
 	    </PreferenceScreen>
 	    
@@ -19,9 +21,15 @@
 	    	android:title="@string/pref_dryer_settings"
 	    	android:persistent="false" >
 	        
-	        <!-- Fill -->
+	        <Preference 
+	            android:title="@string/pref_dryer_default_time"
+	            android:key="dryer_default_time_key" /> 
 	        
 	    </PreferenceScreen>
+	    
+	    <Preference 
+	            android:title="@string/pref_number_machines"
+	            android:key="number_machines_key" /> 
 	    
 	</PreferenceCategory>
 	
@@ -29,9 +37,12 @@
 	<PreferenceCategory
 	    android:title="@string/pref_alarm_settings_cat" >
 	    
-	    <Preference android:title="@string/pref_set_alarm_sound" >
-	        <!-- Add intent here --> 
-	    </Preference>
+	    <RingtonePreference 
+	        android:key="alarm_key"
+	        android:title="@string/pref_set_alarm_sound"
+	        android:ringtoneType="all"
+	        android:showDefault="true"
+	        android:showSilent="false" />
 	    
 	    <CheckBoxPreference
 	        android:key="play_alarm_by_default_key"
