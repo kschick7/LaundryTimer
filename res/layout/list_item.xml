@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Format of an individual item in the machine list -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_activated" >
+
+    <TextView android:id="@+id/list_item_titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:textSize="20sp"
+        android:text="Machine title"
+        />
+    
+    <TextView android:id="@+id/crime_list_item_dateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/list_item_titleTextView"
+        android:gravity="right"
+        android:padding="8dp"
+        android:textSize="20sp"
+        android:text="Countdown"
+        />
+    
+</RelativeLayout>

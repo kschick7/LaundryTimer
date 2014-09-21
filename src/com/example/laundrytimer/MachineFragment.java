@@ -1,5 +1,7 @@
 package com.example.laundrytimer;
 
+import java.util.UUID;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
@@ -13,12 +15,31 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 public class MachineFragment extends Fragment {
-
+	public static final String EXTRA_MACHINE_ID = "com.example.laundrytimer.machine_id"; 
+	private Machine mMachine;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		getActivity().getActionBar().setDisplayShowHomeEnabled(true);		// Enables up-navigation button
+		
+		UUID machineID = (UUID)getArguments().getSerializable(EXTRA_MACHINE_ID);
+		mMachine = MachineLab.get(getActivity()).getMachine(machineID);
+		
+		// Enables up-navigation button
+		getActivity().getActionBar().setDisplayShowHomeEnabled(true);
+	}
+	
+	// EFFECTS: Creates and returns a new instance of MachineFragment
+	//			containing the UUID of the shown crime as an argument.
+	public static MachineFragment newInstance(UUID crimeId) {
+		Bundle args = new Bundle();
+		args.putSerializable(EXTRA_MACHINE_ID, crimeId);
+		
+		MachineFragment fragment = new MachineFragment();
+		fragment.setArguments(args);
+		
+		return fragment;
 	}
 	
 	@Override
@@ -39,6 +60,8 @@ public class MachineFragment extends Fragment {
 		return v;
 	}
 	
+	
+	
 	// Displays the icons on the action bar
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -54,6 +77,11 @@ public class MachineFragment extends Fragment {
 				if (NavUtils.getParentActivityName(getActivity()) != null)		// Navigate up
 					NavUtils.navigateUpFromSameTask(getActivity());
 				return true;
+			case R.id.menu_item_delete_machine:
+				MachineLab.get(getActivity()).deleteMachine(mMachine);			
+				if (NavUtils.getParentActivityName(getActivity()) != null)	
+					NavUtils.navigateUpFromSameTask(getActivity());			
+				return true;	
 			default:
 				return super.onOptionsItemSelected(item);
 		}

@@ -29,7 +29,7 @@
 	    
 	    <Preference 
 	            android:title="@string/pref_number_machines"
-	            android:key="number_machines_key" /> 
+	            android:key="num_machines_key" /> 
 	    
 	</PreferenceCategory>
 	
@@ -52,6 +52,11 @@
 	    <CheckBoxPreference
 	        android:key="vibrate_by_default_key"
 	        android:title="@string/pref_vibrate_title"
+	        android:defaultValue="false" />
+	    
+	    <CheckBoxPreference 
+	        android:key="notifications_by_default_key"
+	        android:title="@string/pref_notification_title"
 	        android:defaultValue="false" />
 	    
 	    
