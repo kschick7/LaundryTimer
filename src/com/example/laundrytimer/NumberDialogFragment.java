@@ -13,8 +13,9 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.NumberPicker;
 
-public class TimeDialogFragment extends DialogFragment{
+public class NumberDialogFragment extends DialogFragment{
 	private NumberPicker mNumberPicker;
+	public static final String EXTRA_MACHINE_NUM = "com.example.laundrytimer.machine_num";
 	
 	// List of keys for arguments
 	private static final String MIN_VALUE = "min";
@@ -25,10 +26,10 @@ public class TimeDialogFragment extends DialogFragment{
 	// REQUIRES: min and max must be positive integers, message refers to a String
 	// EFFECTS:  Adds two inputs (the minimum and max values of the number picker) as 
 	//			 arguments in a new instance of the fragment
-	public static TimeDialogFragment newInstance(int min, int max, int message, String key) {
+	public static NumberDialogFragment newInstance(int min, int max, int message, String key) {
 		assert(min >= 0 && max >= 0);
 		
-		TimeDialogFragment f = new TimeDialogFragment();
+		NumberDialogFragment f = new NumberDialogFragment();
 		Bundle args = new Bundle();
 		args.putInt(MIN_VALUE, min);
 		args.putInt(MAX_VALUE, max);
@@ -42,8 +43,13 @@ public class TimeDialogFragment extends DialogFragment{
 	private void sendResult(int resultCode) {
 		if (getTargetFragment() == null)
 			return;
-		
-		getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, new Intent());
+		if (getTargetRequestCode() == MachineFragment.REQUEST_MACHINE_NUM) {
+			Intent i = new Intent();
+			i.putExtra(EXTRA_MACHINE_NUM, mNumberPicker.getValue());
+			getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, i);
+		} else {
+			getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, new Intent());
+		}
 	}
 	
 	@Override
@@ -76,4 +82,8 @@ public class TimeDialogFragment extends DialogFragment{
         // Create the AlertDialog object and return it
         return builder.create();
     }
+	
+	public int getValue() {
+		return mNumberPicker.getValue();
+	}
 }

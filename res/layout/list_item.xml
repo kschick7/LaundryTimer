@@ -12,17 +12,15 @@
         android:textStyle="bold"
         android:padding="8dp"
         android:textSize="20sp"
-        android:text="Machine title"
         />
     
-    <TextView android:id="@+id/crime_list_item_dateTextView"
+    <TextView android:id="@+id/list_item_countdownView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/list_item_titleTextView"
         android:gravity="right"
         android:padding="8dp"
         android:textSize="20sp"
-        android:text="Countdown"
         />
     
 </RelativeLayout>

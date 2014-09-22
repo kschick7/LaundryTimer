@@ -5,44 +5,82 @@
     android:orientation="vertical" >
     
     <TextView
-        android:text="@string/machine_number_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/machine_title_label"
+		style="?android:listSeparatorTextViewStyle"
+		/>
+    
+    <EditText android:id="@+id/machine_title_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:paddingTop="20dp"
+        android:textColor="@android:color/darker_gray"
+        android:inputType="textCapSentences"
+        android:hint="@string/machine_title_field_hint"
+        android:singleLine="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"  
         />
+   
+    <TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/machine_specs_label"
+		android:paddingTop="5dp"
+		style="?android:listSeparatorTextViewStyle"
+		/>
     
-    <Spinner 
-        android:id="@+id/machine_number_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    
+	    <RadioGroup android:id="@+id/radio_group"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_alignParentRight="true"
+		    android:padding="15dp">
+		    
+		    <RadioButton android:id="@+id/radio_washer"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/washer"
+		        android:textSize="20sp" />
+		        
+		    <RadioButton android:id="@+id/radio_dryer"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/dryer"
+		        android:textSize="20sp" />
+		</RadioGroup>
+		
+	    <TextView android:id="@+id/machine_specs_label"
+	        android:text="@string/machine_number_text"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="15sp"
+	        android:layout_toLeftOf="@id/radio_group"
+	        android:paddingLeft="10dp"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
         />
-    
-    <RadioGroup
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal"
-	    android:paddingLeft="15dp"
-	    android:paddingTop="15dp">
 	    
-	    <RadioButton android:id="@+id/radio_pirates"
-	        android:layout_width="wrap_content"
+	    <Button android:id="@+id/machine_number_picker_button"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:text="@string/washer"
-	        android:paddingRight="20dp"
-	        android:textSize="20sp" />
-	        <!-- android:onClick="onRadioButtonClicked"/> -->
-	        
-	    <RadioButton android:id="@+id/radio_ninjas"
-	        android:layout_width="wrap_content"
+	        android:layout_toLeftOf="@id/radio_group"
+	        android:layout_marginLeft="5dp"
+	        android:layout_below="@id/machine_specs_label" />    
+	    
+	    <Button android:id="@+id/start_button"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:text="@string/dryer"
-	        android:textSize="20sp" />
-	        <!-- android:onClick="onRadioButtonClicked"/> -->
-	</RadioGroup>
+	        android:layout_gravity="bottom"
+	        android:text="@string/start"
+	        android:padding="15dp"
+	        android:layout_alignParentBottom="true"
+       		/>
+	    
+	</RelativeLayout>
     
-
 </LinearLayout>

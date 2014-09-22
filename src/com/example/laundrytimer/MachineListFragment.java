@@ -1,10 +1,14 @@
 package com.example.laundrytimer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import android.annotation.SuppressLint;
+import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,16 +19,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MachineListFragment extends ListFragment {
 	private ArrayList<Machine> mMachines;
 	
 	private class MachineAdapter extends ArrayAdapter<Machine> {
+		TextView mCountdownText;
+		Machine m;
 		
 		public MachineAdapter(ArrayList<Machine> machines) {
 			super(getActivity(), 0, machines);
 		}
 		
+		// Configure the view of each list item
+		@SuppressLint("SimpleDateFormat")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// If we weren't given a view, inflate one.
@@ -32,13 +41,27 @@ public class MachineListFragment extends ListFragment {
 				convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item, null);
 			
 			// Configure the view for this Machine
-			//Machine m = getItem(position);
+			m = getItem(position);
+			TextView titleText = (TextView)convertView.findViewById(R.id.list_item_titleTextView);
+			titleText.setText(m.getTitle());
+			mCountdownText = (TextView)convertView.findViewById(R.id.list_item_countdownView);
 			
-			// ADD IN STUFF
+			if (m.getTimerValue() == -1) {
+				mCountdownText.setText("Not Started");
+			} else {
+				// Set the count-down text view to the current time remaining
+				long outputTime = m.getEndTime() - System.currentTimeMillis();
+				if (outputTime > 0) {
+					Date date = new java.util.Date(outputTime);
+					String result = new SimpleDateFormat("mm:ss").format(date);
+					mCountdownText.setText(result);
+				} else {
+					mCountdownText.setText("Done!");
+				}
+			}
 			
 			return convertView;
-		}
-		
+		}	
 	}
 	
 	
@@ -49,9 +72,21 @@ public class MachineListFragment extends ListFragment {
 		
 		mMachines = MachineLab.get(getActivity()).getMachines();
 		
-		MachineAdapter adapter = new MachineAdapter(mMachines);
+		final MachineAdapter adapter = new MachineAdapter(mMachines);
 		setListAdapter(adapter);
 		setRetainInstance(true);
+		
+		// Creates a handler and runnable which update the adapter every second,
+		// which allows the count-down to work
+		final Handler timerHandler = new Handler();
+		Runnable timerRunnable = new Runnable() {
+		    @Override
+		    public void run() {
+		        adapter.notifyDataSetChanged();
+		        timerHandler.postDelayed(this, 1000); //run every minute
+		    }
+		};
+		timerHandler.postDelayed(timerRunnable, 500);
 
 		/** UNCOMMENT OUT TO CLEAR PREFERENCES DATA
 		PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().clear().commit();

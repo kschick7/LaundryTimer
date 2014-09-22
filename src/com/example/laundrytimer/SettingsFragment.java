@@ -14,17 +14,17 @@ import android.view.MenuItem;
 public class SettingsFragment extends PreferenceFragment {
 	private static final int MIN_TIME_INPUT_VALUE = 20;
 	private static final int MAX_TIME_INPUT_VALUE = 90;
-	private static final int DEFAULT_TIME = 45;
 	private static final int MIN_MACHINE_NUM_INPUT_VALUE = 1;
 	private static final int MAX_MACHINE_NUM_INPUT_VALUE = 100;
-	private static final int DEFAULT_MACHINE_NUM = 40;
-
-	private static final int REQUEST_NUM = 0;
 	
+	// List of default values
+	public static final int DEFAULT_TIME = 45;
+	public static final int DEFAULT_MACHINE_NUM = 40;
+
 	// List of keys
-	private static final String WASHER_TIME = "washer_default_time_key";
-	private static final String DRYER_TIME = "dryer_default_time_key";
-	private static final String NUM_MACHINES = "num_machines_key";
+	public static final String WASHER_TIME = "washer_default_time_key";
+	public static final String DRYER_TIME = "dryer_default_time_key";
+	public static final String NUM_MACHINES = "num_machines_key";
 	
 	// List of preference objects
 	private SharedPreferences mPrefs;
@@ -39,9 +39,9 @@ public class SettingsFragment extends PreferenceFragment {
         return new OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				TimeDialogFragment dialog = TimeDialogFragment.newInstance(min, max, message, key);
+				NumberDialogFragment dialog = NumberDialogFragment.newInstance(min, max, message, key);
 	    		dialog.show(getFragmentManager(), key);
-	    		dialog.setTargetFragment(SettingsFragment.this, REQUEST_NUM);
+	    		dialog.setTargetFragment(SettingsFragment.this, 0);
 				return true;
 			}       	
         };

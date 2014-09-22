@@ -2,7 +2,7 @@ package com.example.laundrytimer;
 
 import java.util.UUID;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 
 public class MachineActivity extends SingleFragmentActivity {
 
