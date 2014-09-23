@@ -4,29 +4,51 @@ package com.example.laundrytimer;
 
 import java.util.UUID;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Machine {
 
 	private UUID mID;
 	private String mTitle;			// Name of the machine
 	private int mMachineNumber;
-	private Type mType;
+	private int mType;
 	private boolean mCustomTitle;	// Whether or not the user changed the title
 	private int mTimerValue;		// Seconds left on the timer, -1 if not started
 	private long mEndTime;			// System time (in millis) when the countdown will end
+	
+	// JSON Keys
+	private static final String JSON_ID = "id";
+	private static final String JSON_TITLE = "title";
+	private static final String JSON_MACHINENUMBER = "machinenumber";
+	private static final String JSON_TYPE = "type";
+	private static final String JSON_CUSTOM = "custom";
+	private static final String JSON_TIMER = "timer";
+	private static final String JSON_ENDTIME = "endtime";
 
-	// Type of Machine
-	public enum Type {
-		MACHINE, WASHER, DRYER
-	}
+	// Types of Machine
+	public static final int MACHINE = 0;
+	public static final int WASHER = 1;
+	public static final int DRYER = 2;
 	
 	public Machine() {
 		mID = UUID.randomUUID();
 		mTitle = "";
 		mMachineNumber = 1;
-		mType = Type.MACHINE;
+		mType = MACHINE;
 		mCustomTitle = false;
 		mTimerValue = -1;
 		mEndTime = -1;
+	}
+	
+	public Machine(JSONObject json) throws JSONException{
+		mID = UUID.fromString(json.getString(JSON_ID));
+		mTitle = json.getString(JSON_TITLE);
+		mMachineNumber = json.getInt(JSON_MACHINENUMBER);
+		mType = json.getInt(JSON_TYPE);
+		mCustomTitle = json.getBoolean(JSON_CUSTOM);
+		mTimerValue = json.getInt(JSON_TIMER);
+		mEndTime = json.getLong(JSON_ENDTIME);
 	}
 
 	public int getTimerValue() {
@@ -65,11 +87,11 @@ public class Machine {
 		return mID;
 	}
 
-	public Type getType() {
+	public int getType() {
 		return mType;
 	}
 
-	public void setType(Type type) {
+	public void setType(int type) {
 		mType = type;
 	}
 	
@@ -79,6 +101,18 @@ public class Machine {
 
 	public void setEndTime(long endTime) {
 		this.mEndTime = endTime;
+	}
+	
+	public JSONObject toJSON() throws JSONException {
+		JSONObject json = new JSONObject();
+		json.put(JSON_ID, mID.toString());
+		json.put(JSON_TITLE, mTitle);
+		json.put(JSON_MACHINENUMBER, mMachineNumber);
+		json.put(JSON_TYPE, mType);
+		json.put(JSON_CUSTOM, mCustomTitle);
+		json.put(JSON_TIMER, mTimerValue);
+		json.put(JSON_ENDTIME, mEndTime);
+		return json;
 	}
 	
 }

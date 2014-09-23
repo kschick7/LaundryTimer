@@ -82,8 +82,4 @@ public class NumberDialogFragment extends DialogFragment{
         // Create the AlertDialog object and return it
         return builder.create();
     }
-	
-	public int getValue() {
-		return mNumberPicker.getValue();
-	}
 }

@@ -23,6 +23,9 @@ import android.widget.TextView;
 
 public class MachineListFragment extends ListFragment {
 	private ArrayList<Machine> mMachines;
+	private MachineAdapter mAdapter;
+	private Handler mTimerHandler;
+	private Runnable mTimerRunnable;
 	
 	private class MachineAdapter extends ArrayAdapter<Machine> {
 		TextView mCountdownText;
@@ -72,21 +75,21 @@ public class MachineListFragment extends ListFragment {
 		
 		mMachines = MachineLab.get(getActivity()).getMachines();
 		
-		final MachineAdapter adapter = new MachineAdapter(mMachines);
-		setListAdapter(adapter);
+		mAdapter = new MachineAdapter(mMachines);
+		setListAdapter(mAdapter);
 		setRetainInstance(true);
 		
-		// Creates a handler and runnable which update the adapter every second,
+		// Initializes a handler and runnable which update the adapter every second,
 		// which allows the count-down to work
-		final Handler timerHandler = new Handler();
-		Runnable timerRunnable = new Runnable() {
+		mTimerHandler = new Handler();
+		mTimerRunnable = new Runnable() {
 		    @Override
 		    public void run() {
-		        adapter.notifyDataSetChanged();
-		        timerHandler.postDelayed(this, 1000); //run every minute
+		        mAdapter.notifyDataSetChanged();
+		        mTimerHandler.postDelayed(this, 1000); //run every minute
 		    }
 		};
-		timerHandler.postDelayed(timerRunnable, 500);
+		mTimerHandler.postDelayed(mTimerRunnable, 500);
 
 		/** UNCOMMENT OUT TO CLEAR PREFERENCES DATA
 		PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().clear().commit();
@@ -95,8 +98,15 @@ public class MachineListFragment extends ListFragment {
 	
 	@Override
 	public void onResume() {
+		mTimerHandler.postDelayed(mTimerRunnable, 500);
 		super.onResume();
-		((MachineAdapter)getListAdapter()).notifyDataSetChanged();
+		//((MachineAdapter)getListAdapter()).notifyDataSetChanged();
+	}
+	
+	@Override
+	public void onPause() {
+		mTimerHandler.removeCallbacks(mTimerRunnable);
+	    super.onPause();
 	}
 	
 	// Opens a window to add a new machine to the list
@@ -161,7 +171,4 @@ public class MachineListFragment extends ListFragment {
 				return super.onOptionsItemSelected(item);	
 		}
 	}
-	
-	
-	
 }

@@ -4,27 +4,30 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.content.Context;
+import android.util.Log;
 
 
 public class MachineLab {
 	private static MachineLab sMachineLab;
-	//private Context mAppContext;
+	private Context mAppContext;
 	private ArrayList<Machine> mMachines;
-	//private CriminalIntentJSONSerializer mSerializer;
+	private JSONSerializer mSerializer;
+	
+	private static final String TAG = "MachineLab";
+	private static final String FILENAME = "machines.json";
 	
 	private MachineLab(Context appContext) {
-		//mAppContext = appContext;
-		mMachines = new ArrayList<Machine>();
-		/*
-		mSerializer = new CriminalIntentJSONSerializer(mAppContext, FILENAME);
+		mAppContext = appContext;
+		mSerializer = new JSONSerializer(mAppContext, FILENAME);
 		
 		try {
 			mMachines = mSerializer.loadMachines();
+			Log.d(TAG, "Loading successful: " + mMachines.size());
 		} catch (Exception e) {
 			mMachines = new ArrayList<Machine>();
 			Log.e(TAG, "Error loading machines: ", e);
 		}
-		*/
+		
 	}
 	
 	public static MachineLab get(Context c) {
@@ -53,10 +56,10 @@ public class MachineLab {
 		mMachines.remove(m);
 	}
 	
-	/*
-	  	public boolean saveMachines() {
+	
+	public boolean saveMachines() {
 		try {
-			mSerializer.saveCrimes(mMachines);
+			mSerializer.saveMachines(mMachines);
 			Log.d(TAG, "crimes saved to file");
 			return true;
 		} catch(Exception e) {
@@ -65,5 +68,5 @@ public class MachineLab {
 		}
 	}
 	  
-	 */
+	 
 }

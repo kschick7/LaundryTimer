@@ -22,8 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.example.laundrytimer.Machine.Type;
-
 public class MachineFragment extends Fragment {
 	public static final String EXTRA_MACHINE_ID = "com.example.laundrytimer.machine_id"; 
 	private SharedPreferences mPrefs;
@@ -90,20 +88,20 @@ public class MachineFragment extends Fragment {
 		
 		// Sets up the radio buttons
 		mWasherButton = (RadioButton)v.findViewById(R.id.radio_washer);
-		mWasherButton.setChecked(mMachine.getType() == Type.WASHER);
+		mWasherButton.setChecked(mMachine.getType() == Machine.WASHER);
 		mDryerButton = (RadioButton)v.findViewById(R.id.radio_dryer);
-		mDryerButton.setChecked(mMachine.getType() == Type.DRYER);
+		mDryerButton.setChecked(mMachine.getType() == Machine.DRYER);
 		mWasherButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				mMachine.setType(Type.WASHER);
+				mMachine.setType(Machine.WASHER);
 				updateComponents();
 			}
 		});
 		mDryerButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				mMachine.setType(Type.DRYER);
+				mMachine.setType(Machine.DRYER);
 				updateComponents();
 			}
 		});
@@ -111,15 +109,15 @@ public class MachineFragment extends Fragment {
 		// Sets up the start button. The button is disabled initially, and is later enabled
 		// when one of the radio buttons is checked.
 		mStartButton = (Button)v.findViewById(R.id.start_button);
-		mStartButton.setEnabled(mMachine.getType() != Type.MACHINE);
+		mStartButton.setEnabled(mMachine.getType() != Machine.MACHINE);
 		mStartButton.setOnClickListener(new OnClickListener() {
 			// Sets the timer value (in seconds) for the machine
 			@Override
 			public void onClick(View v) {
-				if (mMachine.getType() == Type.WASHER) {
+				if (mMachine.getType() == Machine.WASHER) {
 					mMachine.setTimerValue(mPrefs.getInt(SettingsFragment.WASHER_TIME,
 										   SettingsFragment.DEFAULT_TIME) * 60);
-				} else if (mMachine.getType() == Type.DRYER) {
+				} else if (mMachine.getType() == Machine.DRYER) {
 					mMachine.setTimerValue(mPrefs.getInt(SettingsFragment.DRYER_TIME,
 							   SettingsFragment.DEFAULT_TIME) * 60);
 				}
@@ -152,10 +150,10 @@ public class MachineFragment extends Fragment {
 	// MODIFIES: mTitleField text
 	// EFFECTS:  If mTitleField is blank, a simple title is generated based on the user's selections
 	private void updateComponents() {
-		if (mMachine.getType() == Type.WASHER) {
+		if (mMachine.getType() == Machine.WASHER) {
 			if (!mMachine.isCustomTitle())
 				mTitleField.setText("Washer " + mMachine.getMachineNumber());
-		} else if (mMachine.getType() == Type.DRYER) {
+		} else if (mMachine.getType() == Machine.DRYER) {
 			if (!mMachine.isCustomTitle())
 				mTitleField.setText("Dryer " + mMachine.getMachineNumber());
 		}
@@ -195,5 +193,12 @@ public class MachineFragment extends Fragment {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	}	
+	}
+	
+	// Saves the current list of machines to JSON when the fragment is paused (or destroyed)
+	@Override
+	public void onPause() {
+		super.onPause();
+		MachineLab.get(getActivity()).saveMachines();
+	}
 }
