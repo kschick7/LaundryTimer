@@ -9,6 +9,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -47,6 +49,9 @@ public class MachineListFragment extends ListFragment {
 			m = getItem(position);
 			TextView titleText = (TextView)convertView.findViewById(R.id.list_item_titleTextView);
 			titleText.setText(m.getTitle());
+			if (titleText.getText().equals(""))
+				titleText.setText("(No Title)");
+			
 			mCountdownText = (TextView)convertView.findViewById(R.id.list_item_countdownView);
 			
 			if (m.getTimerValue() == -1) {
@@ -137,6 +142,51 @@ public class MachineListFragment extends ListFragment {
 			}
 		});
 		
+		// registerForContextMenu(listView);		USED FOR CONTEXT MENUS, COME BACK WHEN LOWERING VERSION REQS
+		
+		// Enable context menus
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
+			
+			public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+				// Required, but not used.
+			}
+			
+			// ActionMode.Callback methods
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.context_machine_list, menu);
+				return true;
+			}
+			
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false;
+				// Required, but not used
+			}
+		
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.menu_item_delete_machine:
+						MachineAdapter adapter = (MachineAdapter)getListAdapter();
+						MachineLab machineLab = MachineLab.get(getActivity());
+						for (int i = adapter.getCount() - 1; i >= 0; i--) {
+							if (getListView().isItemChecked(i))
+								machineLab.deleteMachine(adapter.getItem(i));
+						}
+						mode.finish();
+						MachineLab.get(getActivity()).saveMachines();
+						adapter.notifyDataSetChanged();
+						return true;
+					default:
+						return false;
+				}
+			}
+			
+			public void onDestroyActionMode(ActionMode mode) {
+				// Required, but not used
+			}
+		});
+		
 		return v;
 	}
 	
@@ -144,7 +194,7 @@ public class MachineListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Machine m = ((MachineAdapter)getListAdapter()).getItem(position);
 
-		// Start CrimePagerActivity with this crime
+		// Start MachineActivity with this machine
 		Intent i = new Intent(getActivity(), MachineActivity.class);
 		i.putExtra(MachineFragment.EXTRA_MACHINE_ID, m.getID());
 		startActivity(i);
@@ -171,4 +221,28 @@ public class MachineListFragment extends ListFragment {
 				return super.onOptionsItemSelected(item);	
 		}
 	}
+	
+	/*			USED FOR CONTEXT MENUS, COME BACK WHEN LOWERING VERSION REQS
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		getActivity().getMenuInflater().inflate(R.menu.context_machine_list, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
+		int position = info.position;
+		MachineAdapter adapter = (MachineAdapter)getListAdapter();
+		Machine machine = adapter.getItem(position);
+		
+		switch(item.getItemId()) {
+			case R.id.menu_item_delete_machine:
+				MachineLab.get(getActivity()).deleteMachine(machine);
+				adapter.notifyDataSetChanged();
+				return true;
+		}
+		
+		return super.onContextItemSelected(item);
+	}
+	*/
 }

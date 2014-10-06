@@ -74,10 +74,12 @@ public class MachineFragment extends Fragment {
 		mTitleField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, int count) {
 				mMachine.setTitle(c.toString());
-				if (mMachine.getTitle().equals("")) {
-					mMachine.setCustomTitle(true);
-				} else {
+				if (mMachine.getTitle().equals("") 
+					|| mMachine.getTitle().equals("Washer " + mMachine.getMachineNumber()) 
+					|| mMachine.getTitle().equals("Dryer " + mMachine.getMachineNumber())) {
 					mMachine.setCustomTitle(false);
+				} else {
+					mMachine.setCustomTitle(true);
 				}
 			}
 			
