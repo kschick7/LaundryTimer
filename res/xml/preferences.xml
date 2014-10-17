@@ -55,7 +55,7 @@
 	        android:defaultValue="false" />
 	    
 	    <CheckBoxPreference 
-	        android:key="notifications_by_default_key"
+	        android:key="notification_by_default_key"
 	        android:title="@string/pref_notification_title"
 	        android:defaultValue="false" />
 	    

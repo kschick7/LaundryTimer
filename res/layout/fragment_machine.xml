@@ -54,33 +54,92 @@
 		        android:textSize="20sp" />
 		</RadioGroup>
 		
-	    <TextView android:id="@+id/machine_specs_label"
+	    <TextView android:id="@+id/machine_number_label"
 	        android:text="@string/machine_number_text"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:textSize="15sp"
 	        android:layout_toLeftOf="@id/radio_group"
-	        android:paddingLeft="10dp"
+	        android:paddingLeft="15dp"
 	        android:paddingTop="5dp"
-	        android:paddingBottom="5dp"
-        />
+	        android:paddingBottom="5dp" />
 	    
 	    <Button android:id="@+id/machine_number_picker_button"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_toLeftOf="@id/radio_group"
-	        android:layout_marginLeft="5dp"
-	        android:layout_below="@id/machine_specs_label" />    
+	        android:layout_marginLeft="15dp"
+	        android:layout_below="@id/machine_number_label" />  
+	          
+	</RelativeLayout>
 	    
+    <TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/machine_timer_label"
+		android:paddingTop="5dp"
+		style="?android:listSeparatorTextViewStyle" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" >
+    
+	    <TextView
+		    android:text="@string/machine_time_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textSize="20sp"
+		    android:paddingTop="10dp"
+		    android:paddingBottom="5dp"
+		    android:paddingRight="10dp" />
+	    
+	    <Button android:id="@+id/time_button"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" />
+	    
+	</LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp" >
+        
+        <CheckBox android:id="@+id/alarm_checkbox"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/pref_play_alarm_title" />
+        
+        <CheckBox android:id="@+id/vibrate_checkbox"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/pref_vibrate_title" />
+        
+        <CheckBox android:id="@+id/notification_checkbox"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/pref_notification_title" />
+        
+    </LinearLayout>
+    
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	        
 	    <Button android:id="@+id/start_button"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="bottom"
 	        android:text="@string/start"
 	        android:padding="15dp"
-	        android:layout_alignParentBottom="true"
-       		/>
+	        android:layout_alignParentBottom="true" />
 	    
 	</RelativeLayout>
-    
+	
 </LinearLayout>

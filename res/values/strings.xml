@@ -10,6 +10,7 @@
     <string name="menu_preferences">Preferences</string>
     <string name="delete_machine">Delete</string>
     <string name="machine_number_text">Machine Number:</string>
+    <string name="machine_time_text">Time:</string>
     <string name="washer">Washer</string>
     <string name="dryer">Dryer</string>
     
@@ -39,6 +40,7 @@
     <!-- Machine fragment strings -->
     <string name="machine_title_label">Title</string>
     <string name="machine_specs_label">Specifications</string>
+    <string name="machine_timer_label">Alarm Settings</string>
     <string name="machine_title_field_hint">AUTO-FILLS IF LEFT BLANK</string>
     <string name="start">Start</string>
 

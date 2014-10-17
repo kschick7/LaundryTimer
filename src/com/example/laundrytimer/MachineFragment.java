@@ -19,6 +19,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -32,6 +35,11 @@ public class MachineFragment extends Fragment {
 	private RadioButton mWasherButton;
 	private RadioButton mDryerButton;
 	private Button mStartButton;
+	private Button mTimeButton;
+	private CheckBox mAlarmCheckbox;
+	private CheckBox mVibrateCheckbox;
+	private CheckBox mNotificationCheckbox;
+	
 	
 	public static final int REQUEST_MACHINE_NUM = 5;
 	
@@ -108,10 +116,21 @@ public class MachineFragment extends Fragment {
 			}
 		});
 		
+		// Set the default values for the machine time and alarm settings based on preferences
+		mTimeButton = (Button)v.findViewById(R.id.time_button);		// Text changed in updateComponents method
+		mAlarmCheckbox = (CheckBox)v.findViewById(R.id.alarm_checkbox);
+		mAlarmCheckbox.setChecked(mMachine.isPlayAlarm());
+		mAlarmCheckbox.setOnCheckedChangeListener(onCheckboxClicked(mAlarmCheckbox));
+		mVibrateCheckbox = (CheckBox)v.findViewById(R.id.vibrate_checkbox);
+		mVibrateCheckbox.setChecked(mMachine.isVibrate());
+		mVibrateCheckbox.setOnCheckedChangeListener(onCheckboxClicked(mVibrateCheckbox));
+		mNotificationCheckbox = (CheckBox)v.findViewById(R.id.notification_checkbox);
+		mNotificationCheckbox.setChecked(mMachine.isNotification());
+		mNotificationCheckbox.setOnCheckedChangeListener(onCheckboxClicked(mNotificationCheckbox));
+		
 		// Sets up the start button. The button is disabled initially, and is later enabled
 		// when one of the radio buttons is checked.
 		mStartButton = (Button)v.findViewById(R.id.start_button);
-		mStartButton.setEnabled(mMachine.getType() != Machine.MACHINE);
 		mStartButton.setOnClickListener(new OnClickListener() {
 			// Sets the timer value (in seconds) for the machine
 			@Override
@@ -121,18 +140,19 @@ public class MachineFragment extends Fragment {
 										   SettingsFragment.DEFAULT_TIME) * 60);
 				} else if (mMachine.getType() == Machine.DRYER) {
 					mMachine.setTimerValue(mPrefs.getInt(SettingsFragment.DRYER_TIME,
-							   SettingsFragment.DEFAULT_TIME) * 60);
+										   SettingsFragment.DEFAULT_TIME) * 60);
 				}
-				
+						
 				// Set the end time
 				mMachine.setEndTime(mMachine.getTimerValue() * 1000 + System.currentTimeMillis());
-				
+						
 				// Return to the list fragment
 				if (NavUtils.getParentActivityName(getActivity()) != null)	
 					NavUtils.navigateUpFromSameTask(getActivity());
 			}
 		});
 		
+		updateComponents();
 		return v;
 	}
 	
@@ -141,7 +161,6 @@ public class MachineFragment extends Fragment {
 	public static MachineFragment newInstance(UUID crimeId) {
 		Bundle args = new Bundle();
 		args.putSerializable(EXTRA_MACHINE_ID, crimeId);
-		
 		MachineFragment fragment = new MachineFragment();
 		fragment.setArguments(args);
 		
@@ -153,13 +172,16 @@ public class MachineFragment extends Fragment {
 	// EFFECTS:  If mTitleField is blank, a simple title is generated based on the user's selections
 	private void updateComponents() {
 		if (mMachine.getType() == Machine.WASHER) {
+			mTimeButton.setText(mPrefs.getInt(SettingsFragment.WASHER_TIME, SettingsFragment.DEFAULT_TIME) + "minutes");
 			if (!mMachine.isCustomTitle())
 				mTitleField.setText("Washer " + mMachine.getMachineNumber());
 		} else if (mMachine.getType() == Machine.DRYER) {
+			mTimeButton.setText(mPrefs.getInt(SettingsFragment.DRYER_TIME, SettingsFragment.DEFAULT_TIME) + " minutes");
 			if (!mMachine.isCustomTitle())
 				mTitleField.setText("Dryer " + mMachine.getMachineNumber());
 		}
-		mStartButton.setEnabled(true);
+		mStartButton.setEnabled(mMachine.getType() != Machine.MACHINE);
+		mTimeButton.setEnabled(mMachine.getType() != Machine.MACHINE);
 	}
 	
 	// Sets the text of mNumPickerButton when the user changes the value
@@ -202,5 +224,28 @@ public class MachineFragment extends Fragment {
 	public void onPause() {
 		super.onPause();
 		MachineLab.get(getActivity()).saveMachines();
+	}
+	
+	// Returns a OnCheckedChangeListener to be used by the alarm, vibrate, and notification
+	// checkboxes.
+	private OnCheckedChangeListener onCheckboxClicked(final View view) {
+		return new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+				boolean checked = ((CheckBox)view).isChecked();
+				
+				switch(view.getId()) {
+					case R.id.alarm_checkbox:
+						mMachine.setPlayAlarm(checked);
+						break;
+					case R.id.vibrate_checkbox:
+						mMachine.setVibrate(checked);
+						break;
+					case R.id.notification_checkbox:
+						mMachine.setNotification(checked);
+						break;
+				}	
+			}
+		};
 	}
 }

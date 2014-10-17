@@ -7,8 +7,10 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.ListFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -103,21 +105,28 @@ public class MachineListFragment extends ListFragment {
 	
 	@Override
 	public void onResume() {
+		// Resumes the count-down
 		mTimerHandler.postDelayed(mTimerRunnable, 500);
 		super.onResume();
-		//((MachineAdapter)getListAdapter()).notifyDataSetChanged();
+		// Get rid of delay for updating the list upon adding a new machine
+		((MachineAdapter)getListAdapter()).notifyDataSetChanged();
 	}
 	
 	@Override
 	public void onPause() {
+		// Prevents the count-down from using resources while the fragment is not active
 		mTimerHandler.removeCallbacks(mTimerRunnable);
 	    super.onPause();
 	}
 	
 	// Opens a window to add a new machine to the list
 	public void addMachine() {
-		//startActivity(new Intent(getActivity(), MachineActivity.class));
 		Machine m = new Machine();
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		m.setPlayAlarm(prefs.getBoolean("play_alarm_by_default_key", false));
+		m.setVibrate(prefs.getBoolean("vibrate_by_default_key", false));
+		m.setNotification(prefs.getBoolean("notification_by_default_key", false));
+		
 		MachineLab.get(getActivity()).addMachine(m);
 		Intent i = new Intent(getActivity(), MachineActivity.class);
 		i.putExtra(MachineFragment.EXTRA_MACHINE_ID, m.getID());

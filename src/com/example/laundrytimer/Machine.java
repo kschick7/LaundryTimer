@@ -14,6 +14,9 @@ public class Machine {
 	private int mMachineNumber;
 	private int mType;
 	private boolean mCustomTitle;	// Whether or not the user changed the title
+	private boolean mPlayAlarm;
+	private boolean mVibrate;
+	private boolean mNotification;
 	private int mTimerValue;		// Seconds left on the timer, -1 if not started
 	private long mEndTime;			// System time (in millis) when the countdown will end
 	
@@ -24,6 +27,9 @@ public class Machine {
 	private static final String JSON_TYPE = "type";
 	private static final String JSON_CUSTOM = "custom";
 	private static final String JSON_TIMER = "timer";
+	private static final String JSON_ALARM = "alarm";
+	private static final String JSON_VIBRATE = "vibrate";
+	private static final String JSON_NOTIFICATION = "notification";
 	private static final String JSON_ENDTIME = "endtime";
 
 	// Types of Machine
@@ -37,6 +43,9 @@ public class Machine {
 		mMachineNumber = 1;
 		mType = MACHINE;
 		mCustomTitle = false;
+		mPlayAlarm = false;
+		mVibrate = false;
+		mNotification = false;
 		mTimerValue = -1;
 		mEndTime = -1;
 	}
@@ -47,6 +56,9 @@ public class Machine {
 		mMachineNumber = json.getInt(JSON_MACHINENUMBER);
 		mType = json.getInt(JSON_TYPE);
 		mCustomTitle = json.getBoolean(JSON_CUSTOM);
+		mPlayAlarm = json.getBoolean(JSON_ALARM);
+		mVibrate = json.getBoolean(JSON_VIBRATE);
+		mNotification = json.getBoolean(JSON_NOTIFICATION);
 		mTimerValue = json.getInt(JSON_TIMER);
 		mEndTime = json.getLong(JSON_ENDTIME);
 	}
@@ -110,9 +122,36 @@ public class Machine {
 		json.put(JSON_MACHINENUMBER, mMachineNumber);
 		json.put(JSON_TYPE, mType);
 		json.put(JSON_CUSTOM, mCustomTitle);
+		json.put(JSON_ALARM, mPlayAlarm);
+		json.put(JSON_VIBRATE, mVibrate);
+		json.put(JSON_NOTIFICATION, mNotification);
 		json.put(JSON_TIMER, mTimerValue);
 		json.put(JSON_ENDTIME, mEndTime);
 		return json;
+	}
+
+	public boolean isPlayAlarm() {
+		return mPlayAlarm;
+	}
+
+	public void setPlayAlarm(boolean alarm) {
+		mPlayAlarm = alarm;
+	}
+
+	public boolean isVibrate() {
+		return mVibrate;
+	}
+
+	public void setVibrate(boolean vibrate) {
+		mVibrate = vibrate;
+	}
+
+	public boolean isNotification() {
+		return mNotification;
+	}
+
+	public void setNotification(boolean notification) {
+		mNotification = notification;
 	}
 	
 }
